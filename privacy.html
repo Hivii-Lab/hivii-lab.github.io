@@ -4,15 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>プライバシーポリシー - Bossot</title>
+    <title>Privacy Policy - Bossot</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            color: #333;
-            background-color: #fff;
+            color: #5D5D5D;
+            background-color: #FFF0F3;
+            transition: background-color 0.3s;
         }
 
         .container {
@@ -21,17 +22,27 @@
             padding: 40px 20px;
         }
 
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            padding-bottom: 10px;
+        }
+
         h1 {
             font-size: 24px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-            margin-bottom: 30px;
+            margin: 0;
+            border: none;
+            padding: 0;
         }
 
         h2 {
             font-size: 18px;
             margin-top: 30px;
             margin-bottom: 15px;
+            font-weight: 600;
         }
 
         p {
@@ -42,44 +53,125 @@
         .footer-link {
             margin-top: 40px;
             display: inline-block;
-            color: #007AFF;
+            color: #FF6969;
             text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Toggle Switch */
+        .toggle-container {
+            display: flex;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            padding: 4px;
+            gap: 4px;
+        }
+
+        .toggle-btn {
+            border: none;
+            background: none;
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            color: #5D5D5D;
+            transition: all 0.2s;
+        }
+
+        .toggle-btn.active {
+            background-color: #FF6969;
+            color: #FFFFFF;
+            box-shadow: 0 2px 8px rgba(255, 105, 105, 0.3);
+        }
+
+        .hidden {
+            display: none;
         }
 
         @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #1c1c1e;
-                color: #f5f5f7;
-            }
-
-            .footer-link {
-                color: #0A84FF;
-            }
-
-            h1 {
-                border-bottom-color: #333;
-            }
+            /* Keep strict design if user requested it, otherwise allow dark mode override */
+            /* Current instruction implies sticking to the pink theme mostly, but can add support if needed. */
+            /* For now, sticking to the requested Fixed color scheme. */
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>プライバシーポリシー</h1>
+        <div class="header-row">
+            <h1 id="page-title">プライバシーポリシー</h1>
 
-        <h2>データの扱いについて</h2>
-        <p>本アプリ「Bossot」において、ユーザーが作成したデータ（テキスト、画像、動画等）はすべてお客様の端末内（ローカル）にのみ保存されます。運営者（Hivii）がこれらの個人データを収集・保存・送信することは一切ありません。
-        </p>
+            <div class="toggle-container">
+                <button class="toggle-btn active" onclick="setLang('jp')">JP</button>
+                <button class="toggle-btn" onclick="setLang('en')">EN</button>
+            </div>
+        </div>
 
-        <h2>広告について</h2>
-        <p>本アプリでは、第三者配信の広告サービス「Google AdMob」を利用しています。<br>
-            広告配信事業者は、ユーザーの興味に応じた広告を表示するために、お客様の端末の識別子（IDFA、Advertising ID等）を使用する場合があります。</p>
+        <!-- Japanese Content -->
+        <div id="content-jp">
+            <h2>データの扱いについて</h2>
+            <p>本アプリ「Bossot」において、ユーザーが作成したデータ（テキスト、画像、動画等）はすべてお客様の端末内（ローカル）にのみ保存されます。運営者（Hivii）がこれらの個人データを収集・保存・送信することは一切ありません。
+            </p>
 
-        <h2>免責事項</h2>
-        <p>本アプリの利用により生じた、いかなる損害・トラブルについても、運営者（Hivii）は一切の責任を負いません。予めご了承ください。</p>
+            <h2>広告について</h2>
+            <p>本アプリでは、第三者配信の広告サービス「Google AdMob」を利用しています。<br>
+                広告配信事業者は、ユーザーの興味に応じた広告を表示するために、お客様の端末の識別子（IDFA、Advertising ID等）を使用する場合があります。</p>
 
-        <a href="index.html" class="footer-link">← トップページに戻る</a>
+            <h2>免責事項</h2>
+            <p>本アプリの利用により生じた、いかなる損害・トラブルについても、運営者（Hivii）は一切の責任を負いません。予めご了承ください。</p>
+
+            <a href="index.html" class="footer-link">← トップページに戻る</a>
+        </div>
+
+        <!-- English Content -->
+        <div id="content-en" class="hidden">
+            <h2>About Data Handling</h2>
+            <p>In this app "Bossot", all user-created data (text, images, videos, etc.) is saved only locally on your
+                device. The operator (Hivii) does not collect, save, or transmit any of this personal data.</p>
+
+            <h2>About Ads</h2>
+            <p>This app uses the third-party advertising service "Google AdMob".<br>
+                Advertising providers may use your device's identifier (IDFA, Advertising ID, etc.) to display
+                advertisements tailored to your interests.</p>
+
+            <h2>Disclaimer</h2>
+            <p>The operator (Hivii) assumes no responsibility for any damages or troubles arising from the use of this
+                app. Please use it at your own discretion.</p>
+
+            <a href="index.html" class="footer-link">← Back to Top Page</a>
+        </div>
+
     </div>
+
+    <script>
+        function setLang(lang) {
+            const jpContent = document.getElementById('content-jp');
+            const enContent = document.getElementById('content-en');
+            const pageTitle = document.getElementById('page-title');
+            const btns = document.querySelectorAll('.toggle-btn');
+
+            // Toggle active class on buttons
+            btns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase() === lang) {
+                    btn.classList.add('active');
+                }
+            });
+
+            if (lang === 'jp') {
+                jpContent.classList.remove('hidden');
+                enContent.classList.add('hidden');
+                pageTitle.textContent = 'プライバシーポリシー';
+                document.documentElement.lang = 'ja';
+            } else {
+                jpContent.classList.add('hidden');
+                enContent.classList.remove('hidden');
+                pageTitle.textContent = 'Privacy Policy';
+                document.documentElement.lang = 'en';
+            }
+        }
+    </script>
 </body>
 
 </html>

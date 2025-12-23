@@ -1,187 +1,174 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bossot - あなたの思考と記憶を、美しくログする</title>
-    <meta name="description" content="Bossotは、画像・動画・テキストをカテゴリごとに直感的に保存できる、シンプルで美しいライフログアプリです。">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bossot - Let's Boyako.</title>
     <style>
         :root {
-            --bg-color: #ffffff;
-            --text-color: #333333;
-            --accent-color: #007AFF;
-            --secondary-bg: #f5f5f7;
+            --bg-color: #FFF0F3;
+            --text-color: #5D5D5D;
+            --logo-bg: #FFF0F3;
+            --logo-shadow: rgba(255, 182, 193, 0.4);
         }
 
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: #1c1c1e;
-                --text-color: #f5f5f7;
-                --accent-color: #0A84FF;
-                --secondary-bg: #2c2c2e;
-            }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             background-color: var(--bg-color);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             color: var(--text-color);
-            line-height: 1.6;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        header {
-            padding: 20px 40px;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background-color: rgba(255, 255, 255, 0.8);
+            justify-content: center;
+            /* Enhance text rendering */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        @media (prefers-color-scheme: dark) {
-            header {
-                background-color: rgba(28, 28, 30, 0.8);
-            }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 20px;
+            /* Ensure it sits nicely in the vertical center */
+            flex: 1;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
+        .hero-text {
+            /* Consistent responsive font size */
+            font-size: clamp(2.3rem, 6vw, 3.5rem);
+            font-weight: bold;
+            letter-spacing: 0.02em;
+            margin-bottom: 2.5rem;
+            color: #FF6969;
+            opacity: 1;
+            white-space: nowrap;
         }
 
-        .hero {
-            padding: 100px 20px;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
+        .logo-placeholder {
+            /* Base size */
+            height: 478px;
+            width: auto;
+            aspect-ratio: 233 / 478;
+
+            /* Responsive constraints */
+            max-height: 55vh;
+            max-width: 80vw;
+
+            background-color: var(--logo-bg);
+            /* Scalable circular corners: 35px/233px ~ 15%, 35px/478px ~ 7.3% */
+            border-radius: 15% / 7.3%;
+            box-shadow: 0 0 31.5px 6px #FF9494;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+            transition: transform 0.3s ease;
         }
 
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, var(--accent-color), #5856D6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.2;
+        .logo-placeholder:hover {
+            transform: scale(1.02);
         }
 
-        .hero p {
-            font-size: 1.2rem;
-            color: #888;
-            margin-bottom: 40px;
+        .logo-icon {
+            width: 70%;
+            height: auto;
+            object-fit: contain;
+            /* fill: #FFB7C5; - Removed as we are using an img tag now */
         }
 
-        .features {
-            padding: 80px 20px;
-            background-color: var(--secondary-bg);
+        .sub-text {
+            /* Consistent responsive font size */
+            font-size: clamp(2.3rem, 6vw, 3.5rem);
+            font-weight: bold;
+            letter-spacing: 0.02em;
+            color: #FF6969;
+            opacity: 1;
+            margin-bottom: 1rem;
+            white-space: nowrap;
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
+        /* Space for future App Store button - visual spacer */
+        .app-store-spacer {
+            height: 50px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Temporary visual cue or just empty space */
+            /* border: 1px dashed rgba(0,0,0,0.1); */
+            /* border-radius: 8px; */
+            /* width: 140px; */
         }
 
-        .features h2 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 60px;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-        }
-
-        .feature-card {
-            background: var(--bg-color);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .feature-card h3 {
-            margin-top: 0;
-            margin-bottom: 10px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            font-size: 0.9rem;
-            color: #888;
-            border-top: 1px solid rgba(0,0,0,0.1);
-        }
-
-        footer a {
-            color: var(--accent-color);
+        .privacy-link {
+            position: absolute;
+            bottom: 40px;
+            /* More space from bottom */
+            font-size: 0.85rem;
             text-decoration: none;
-            margin: 0 10px;
+            color: #5D5D5D;
+
+            /* Capsule Button Style */
+            background-color: #FFFFFF;
+            padding: 12px 24px;
+            border-radius: 50px;
+            box-shadow: 0 4px 12px rgba(255, 105, 105, 0.15);
+            font-weight: 500;
+
+            transition: all 0.2s ease;
         }
-        
-        @media (max-width: 600px) {
-            .hero h1 {
-                font-size: 2.2rem;
+
+        .privacy-link:active {
+            transform: scale(0.96);
+            box-shadow: 0 2px 6px rgba(255, 105, 105, 0.1);
+        }
+
+        @media (max-width: 380px) {
+            .hero-text {
+                font-size: 1.7rem;
+                margin-bottom: 2rem;
+            }
+
+            .sub-text {
+                font-size: 1.3rem;
             }
         }
     </style>
 </head>
+
 <body>
-    <header>
-        <div class="logo">Bossot</div>
-    </header>
 
-    <section class="hero">
-        <h1>あなたの思考と記憶を、<br>美しくログする</h1>
-        <p>直感的な操作で、日々のインスピレーションを記録しましょう。</p>
-        <!-- Add App Store buttons here in the future -->
-    </section>
+    <div class="main-container">
+        <div class="hero-text">Boyako...</div>
 
-    <section class="features">
-        <div class="container">
-            <h2>Feature</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <span class="feature-icon">📝</span>
-                    <h3>テキスト</h3>
-                    <p>ふと思いついたアイデアや日記を、シンプルに書き留めます。</p>
-                </div>
-                <div class="feature-card">
-                    <span class="feature-icon">📸</span>
-                    <h3>画像</h3>
-                    <p>思い出の写真やスクリーンショットを、美しく整理します。</p>
-                </div>
-                <div class="feature-card">
-                    <span class="feature-icon">🎥</span>
-                    <h3>動画</h3>
-                    <p>大切な瞬間を動画として保存し、いつでも振り返れます。</p>
-                </div>
-            </div>
+        <div class="logo-placeholder">
+            <!-- Logo Image -->
+            <img src="logo.svg" alt="Bossot Logo" class="logo-icon">
         </div>
-    </section>
 
-    <footer>
-        <p>&copy; 2025 Hivii</p>
-        <p><a href="privacy.html">プライバシーポリシー</a></p>
-    </footer>
+        <div class="sub-text">And save.</div>
+
+        <div class="app-store-spacer">
+            <!-- Reserved for App Store Button -->
+        </div>
+    </div>
+
+    <a href="privacy.html" class="privacy-link">Privacy Policy</a>
+
 </body>
+
 </html>
