@@ -147,13 +147,57 @@
                 font-size: 1.3rem;
             }
         }
+
+        /* Animation Initial States */
+        body.loading .hero-text {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        body.loading .sub-text {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        body.loading .logo-placeholder {
+            max-height: 0;
+            margin-bottom: 0;
+            opacity: 0;
+            /* Ensure it collapses fully */
+            overflow: hidden;
+        }
+
+        body.loading .logo-icon {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        /* Transitions */
+        .hero-text,
+        .sub-text {
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .logo-placeholder {
+            /* Transition for expanding space - Slowed down to 2.0s */
+            transition: max-height 2.0s cubic-bezier(0.2, 0.8, 0.2, 1),
+                margin-bottom 2.0s cubic-bezier(0.2, 0.8, 0.2, 1),
+                opacity 0.8s ease;
+        }
+
+        .logo-icon {
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        /* Specific phases classes could be used, or just style manipulation via JS */
     </style>
 </head>
 
-<body>
+<body class="loading">
 
     <div class="main-container">
-        <div class="hero-text">Boyako...</div>
+        <div class="hero-text">Boyako<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+        </div>
 
         <div class="logo-placeholder">
             <!-- Logo Image -->
@@ -169,6 +213,93 @@
 
     <a href="privacy.html" class="privacy-link">Privacy Policy</a>
 
+    <script>
+        window.addEventListener('load', () => {
+            const body = document.body;
+            const heroText = document.querySelector('.hero-text');
+            const dots = document.querySelectorAll('.dot');
+            const subText = document.querySelector('.sub-text');
+            const placeholder = document.querySelector('.logo-placeholder');
+            const logoIcon = document.querySelector('.logo-icon');
+
+            // Setup Initial State for Center Animation
+            // Hide subText and remove margin from hero to center hero perfectly
+            subText.style.display = 'none';
+            heroText.style.marginBottom = '0';
+
+            // Initial opacity for dots
+            dots.forEach(dot => dot.style.opacity = '0');
+
+            // Sequence
+
+            // 1. Appear Boyako (0s)
+            setTimeout(() => {
+                heroText.style.opacity = '1';
+                heroText.style.transform = 'translateY(0)';
+            }, 100);
+
+            // 1a. Dots appear sequentially (Start 0.6s)
+            dots.forEach((dot, index) => {
+                setTimeout(() => {
+                    dot.style.transition = 'opacity 0.4s ease';
+                    dot.style.opacity = '1';
+                }, 600 + (index * 400));
+            });
+
+            // 2. Appear And save + Move Boyako Up (2.2s)
+            setTimeout(() => {
+                // FLIP Animation for Hero Text
+                const startRect = heroText.getBoundingClientRect();
+
+                // Change Layout
+                subText.style.display = 'block'; // Make it take space
+                heroText.style.marginBottom = '2.5rem'; // Restore margin
+
+                // Force layout update to calculate new position
+                const endRect = heroText.getBoundingClientRect();
+                const dy = startRect.top - endRect.top;
+
+                // Invert: interactively move back to start position
+                heroText.style.transition = 'none';
+                heroText.style.transform = `translateY(${dy}px)`;
+
+                // Play: Animate simple transition to 0
+                // We need a requestAnimationFrame or slight timeout to allow the browser to register the 'none' transition
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        heroText.style.transition = 'transform 1.0s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s ease';
+                        heroText.style.transform = 'translateY(0)';
+                    });
+                });
+
+                // Show Sub Text
+                // Give it a slight delay so it appears as Boyako moves up
+                setTimeout(() => {
+                    subText.style.opacity = '1';
+                    subText.style.transform = 'translateY(0)';
+                }, 100);
+
+            }, 2200);
+
+            // 3. Move Apart (Expand Placeholder) (3.8s)
+            // Wait for Boyako to settle (2.2 + 1.0 = 3.2), then pause briefly
+            setTimeout(() => {
+                placeholder.style.maxHeight = '65vh';
+                placeholder.style.marginBottom = '2.5rem';
+            }, 3800);
+
+            // 4. Show Placeholder (5.8s)
+            setTimeout(() => {
+                placeholder.style.opacity = '1';
+            }, 5800);
+
+            // 5. Show Logo (6.4s)
+            setTimeout(() => {
+                logoIcon.style.opacity = '1';
+                logoIcon.style.transform = 'scale(1)';
+            }, 6400);
+        });
+    </script>
 </body>
 
 </html>
