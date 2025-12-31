@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Bossot - Let's Boyako.</title>
+    <title>Hivii Lab - Portfolio</title>
     <style>
         :root {
-            --bg-color: #FFF0F3;
+            --bg-color: #FFFFFF;
             --text-color: #5D5D5D;
-            --logo-bg: #FFF0F3;
-            --logo-shadow: rgba(255, 182, 193, 0.4);
+            --logo-bg: #FFFFFF;
+            --logo-shadow: rgba(0, 0, 0, 0.1);
         }
 
         * {
@@ -24,13 +24,9 @@
             background-color: var(--bg-color);
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             color: var(--text-color);
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
             /* Enhance text rendering */
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
@@ -114,28 +110,7 @@
             /* width: 140px; */
         }
 
-        .privacy-link {
-            position: absolute;
-            bottom: 40px;
-            /* More space from bottom */
-            font-size: 0.85rem;
-            text-decoration: none;
-            color: #5D5D5D;
 
-            /* Capsule Button Style */
-            background-color: #FFFFFF;
-            padding: 12px 24px;
-            border-radius: 50px;
-            box-shadow: 0 4px 12px rgba(255, 105, 105, 0.15);
-            font-weight: 500;
-
-            transition: all 0.2s ease;
-        }
-
-        .privacy-link:active {
-            transform: scale(0.96);
-            box-shadow: 0 2px 6px rgba(255, 105, 105, 0.1);
-        }
 
         @media (max-width: 380px) {
             .hero-text {
@@ -190,116 +165,159 @@
         }
 
         /* Specific phases classes could be used, or just style manipulation via JS */
+
+        /* Projects Section */
+        .projects-section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .projects-title {
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 60px;
+            color: #5D5D5D;
+        }
+
+        .projects-grid {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .project-phone {
+            /* Base size matching Bossot logo */
+            height: 478px;
+            width: auto;
+            aspect-ratio: 233 / 478;
+
+            /* Responsive constraints */
+            max-height: 55vh;
+            max-width: 40vw;
+
+            /* Scalable circular corners */
+            border-radius: 15% / 7.3%;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            text-decoration: none;
+
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .project-phone:hover {
+            transform: scale(1.05);
+        }
+
+        /* Bossot styling */
+        .project-phone[data-project="bossot"] {
+            background-color: #FFF0F3;
+            box-shadow: 0 0 31.5px 6px #FF9494;
+        }
+
+        .project-phone[data-project="bossot"]:hover {
+            box-shadow: 0 0 40px 8px #FF9494;
+        }
+
+        /* Naolii styling */
+        .project-phone[data-project="naolii"] {
+            background: linear-gradient(135deg, #1A1B41 0%, #282A55 100%);
+            box-shadow: 0 0 31.5px 6px rgba(83, 109, 254, 0.5);
+            /* Indigo shadow */
+        }
+
+        .project-phone[data-project="naolii"]:hover {
+            box-shadow: 0 0 40px 8px rgba(83, 109, 254, 0.7);
+        }
+
+        .project-phone[data-project="naolii"] .project-name {
+            color: #FFFFFF;
+        }
+
+        .project-phone[data-project="naolii"] .project-description {
+            color: #B0BEC5;
+        }
+
+        .project-icon {
+            width: 70%;
+            height: auto;
+            object-fit: contain;
+            margin-bottom: 30px;
+        }
+
+        .project-name {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #5D5D5D;
+            text-align: center;
+        }
+
+        .project-description {
+            font-size: clamp(0.85rem, 2vw, 1rem);
+            color: #757575;
+            line-height: 1.5;
+            text-align: center;
+            padding: 0 10px;
+        }
+
+        @media (max-width: 768px) {
+            .projects-section {
+                padding: 60px 20px;
+            }
+
+            .projects-grid {
+                flex-direction: column;
+                align-items: center;
+                gap: 50px;
+            }
+
+            .project-phone {
+                max-width: 280px;
+                height: 420px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .project-phone {
+                height: 380px;
+                max-width: 240px;
+            }
+        }
     </style>
 </head>
 
-<body class="loading">
+<body>
 
-    <div class="main-container">
-        <div class="hero-text">Boyako<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+    <!-- Projects Section -->
+    <section class="projects-section">
+        <h2 class="projects-title">Projects</h2>
+        <div class="projects-grid">
+            <!-- Bossot Phone -->
+            <a href="bossot.html" class="project-phone" data-project="bossot">
+                <img src="logo.svg" alt="Bossot Logo" class="project-icon">
+                <h3 class="project-name">Bossot</h3>
+                <p class="project-description">SNSのように<br>アイデアを流れで<br>整理するメモ</p>
+            </a>
+
+            <!-- Naolii Phone -->
+            <a href="naolii.html" class="project-phone" data-project="naolii">
+                <img src="assets/images/naolii_hero.png" alt="Naolii Icon" class="project-icon">
+                <h3 class="project-name">Naolii</h3>
+                <p class="project-description">グラフで操作する<br>次世代ローン<br>シミュレーター</p>
+            </a>
         </div>
+    </section>
 
-        <div class="logo-placeholder">
-            <!-- Logo Image -->
-            <img src="logo.svg" alt="Bossot Logo" class="logo-icon">
-        </div>
 
-        <div class="sub-text">And save.</div>
-
-        <div class="app-store-spacer">
-            <!-- Reserved for App Store Button -->
-        </div>
-    </div>
-
-    <a href="privacy.html" class="privacy-link">Privacy Policy</a>
-
-    <script>
-        window.addEventListener('load', () => {
-            const body = document.body;
-            const heroText = document.querySelector('.hero-text');
-            const dots = document.querySelectorAll('.dot');
-            const subText = document.querySelector('.sub-text');
-            const placeholder = document.querySelector('.logo-placeholder');
-            const logoIcon = document.querySelector('.logo-icon');
-
-            // Setup Initial State for Center Animation
-            // Hide subText and remove margin from hero to center hero perfectly
-            subText.style.display = 'none';
-            heroText.style.marginBottom = '0';
-
-            // Initial opacity for dots
-            dots.forEach(dot => dot.style.opacity = '0');
-
-            // Sequence
-
-            // 1. Appear Boyako (0s)
-            setTimeout(() => {
-                heroText.style.opacity = '1';
-                heroText.style.transform = 'translateY(0)';
-            }, 100);
-
-            // 1a. Dots appear sequentially (Start 0.6s)
-            dots.forEach((dot, index) => {
-                setTimeout(() => {
-                    dot.style.transition = 'opacity 0.4s ease';
-                    dot.style.opacity = '1';
-                }, 600 + (index * 400));
-            });
-
-            // 2. Appear And save + Move Boyako Up (2.2s)
-            setTimeout(() => {
-                // FLIP Animation for Hero Text
-                const startRect = heroText.getBoundingClientRect();
-
-                // Change Layout
-                subText.style.display = 'block'; // Make it take space
-                heroText.style.marginBottom = '2.5rem'; // Restore margin
-
-                // Force layout update to calculate new position
-                const endRect = heroText.getBoundingClientRect();
-                const dy = startRect.top - endRect.top;
-
-                // Invert: interactively move back to start position
-                heroText.style.transition = 'none';
-                heroText.style.transform = `translateY(${dy}px)`;
-
-                // Play: Animate simple transition to 0
-                // We need a requestAnimationFrame or slight timeout to allow the browser to register the 'none' transition
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        heroText.style.transition = 'transform 1.0s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s ease';
-                        heroText.style.transform = 'translateY(0)';
-                    });
-                });
-
-                // Show Sub Text
-                // Give it a slight delay so it appears as Boyako moves up
-                setTimeout(() => {
-                    subText.style.opacity = '1';
-                    subText.style.transform = 'translateY(0)';
-                }, 100);
-
-            }, 2200);
-
-            // 3. Move Apart (Expand Placeholder) (3.8s)
-            // Wait for Boyako to settle (2.2 + 1.0 = 3.2), then pause briefly
-            setTimeout(() => {
-                placeholder.style.maxHeight = '65vh';
-                placeholder.style.marginBottom = '2.5rem';
-            }, 3800);
-
-            // 4. Show Placeholder (5.8s)
-            setTimeout(() => {
-                placeholder.style.opacity = '1';
-            }, 5800);
-
-            // 5. Show Logo (6.4s)
-            setTimeout(() => {
-                logoIcon.style.opacity = '1';
-                logoIcon.style.transform = 'scale(1)';
-            }, 6400);
-        });
-    </script>
 </body>
 
 </html>
